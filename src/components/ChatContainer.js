@@ -70,8 +70,7 @@ export default class ChatContainer extends Component {
             {this.props.messages.map((msg, i) => (
               <div
                 key={msg.id}
-                className={`message ${this.props.user.email ===       
-                                                    msg.author &&
+                className={`message ${this.props.user.email === msg.author &&
                   'mine'}`}>
                 <p>{msg.msg}</p>
                 {this.getAuthor(msg, this.props.messages[i + 1])}
@@ -89,11 +88,13 @@ export default class ChatContainer extends Component {
             onChange={this.handleInputChange}
             onKeyDown={this.handleKeyDown}
             value={this.state.newMessage}
+            style={{
+                resize: "none"
+              }}
           />
           <button onClick={this.handleSubmit}>
             <svg viewBox="0 0 24 24">
-              <path fill="#424242"  
-                d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+              <path fill="#424242" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
             </svg>
           </button>
         </div>

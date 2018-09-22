@@ -8,24 +8,8 @@ import './app.css';
 class App extends Component {
   state = { user: null, messages: [], messagesLoaded: false };
 
-  handleSubmitMessage = msg => {
-    // Send to database
-    console.log(msg);
-  };
-  handleSubmitMessage = msg => {
-    const data = {
-      msg,
-      author: this.state.user.email,
-      user_id: this.state.user.uid,
-      timestamp: Date.now()
-    };
-    firebase
-      .database()
-      .ref('messages/')
-      .push(data);
-  }
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ user });
       } else {
@@ -42,6 +26,7 @@ class App extends Component {
         }
       });
   }
+
   onMessage = snapshot => {
     const messages = Object.keys(snapshot.val()).map(key => {
       const msg = snapshot.val()[key];
@@ -51,9 +36,22 @@ class App extends Component {
     this.setState({ messages });
   };
 
+  handleSubmitMessage = msg => {
+    const data = {
+      msg,
+      author: this.state.user.email,
+      user_id: this.state.user.uid,
+      timestamp: Date.now()
+    };
+    firebase
+      .database()
+      .ref('messages/')
+      .push(data);
+  };
+
   render() {
     return (
-      <div id="container" className="inner-container">
+      <div id="container">
         <Route path="/login" component={LoginContainer} />
         <Route
           exact
