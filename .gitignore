@@ -62,3 +62,4 @@ typings/
 
 #secrets
 /public/secrets.js
+/public/firebase-messaging-sw.js
